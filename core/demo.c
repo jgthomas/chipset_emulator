@@ -21,7 +21,7 @@ chipset *init_chipset(int bits)
 {
         int memory = memory_size(bits);
         chipset *chip = malloc(sizeof(chipset));
-        chip->MEMORY = malloc(sizeof(int) * memory);
+        chip->MEMORY = calloc(sizeof(int), memory);
         chip->INSTRUCTIONS = malloc(sizeof(instruction) * memory);
         init_registers(chip);
         chip->EXECUTE = true;
