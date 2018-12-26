@@ -3,9 +3,12 @@
 
 #include <stdbool.h>
 
-typedef void (*instruction)(void);
+struct chipset;
+typedef struct chipset chipset;
 
-typedef struct _chipset {
+typedef void (*instruction)(chipset);
+
+struct chipset {
         int PC;
         int IR;
         int R0;
@@ -13,6 +16,6 @@ typedef struct _chipset {
         int *MEMORY;
         bool EXECUTE;
         instruction *INSTRUCTIONS;
-} chipset;
+};
 
 #endif
