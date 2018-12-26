@@ -25,10 +25,11 @@ int main(void)
         int bits = 4;
         int instructions = 16;
         char *program = "3334444";
+        int prog_len = 7;
 
         chipset *chip = init_chipset(bits);
         load_instructions(chip, instructions);
-        load_program(chip, program, 7, memory_size(bits));
+        load_program(chip, program, prog_len, memory_size(bits));
         print_memory(chip, memory_size(bits));
         delete_chipset(chip);
 }
