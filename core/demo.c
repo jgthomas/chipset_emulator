@@ -14,7 +14,7 @@ int memory_size(int bits);
 void print_memory(chipset *chip, int memory);
 int map_to_instruction_code(char c);
 char map_to_input_code(int n);
-void load_program(chipset *chip, char *program, int size, int memory);
+void load_program(chipset *chip, char *program, int size);
 void execute_instruction(chipset *chip);
 void execute_program(chipset *chip, int memory);
 
@@ -31,7 +31,7 @@ int main(void)
 
         chipset *chip = init_chipset(bits);
         load_instructions(chip, instructions);
-        load_program(chip, program, prog_len, memory_size(bits));
+        load_program(chip, program, prog_len);
         print_memory(chip, memory_size(bits));
         execute_program(chip, memory_size(bits));
         printf("result %d\n", chip->R0);
@@ -41,12 +41,17 @@ int main(void)
 
 chipset *init_chipset(int bits)
 {
-        int memory = memory_size(bits);
         chipset *chip = malloc(sizeof(chipset));
-        chip->MEMORY = calloc(sizeof(int), memory);
-        chip->INSTRUCTIONS = malloc(sizeof(instruction) * memory);
+
+        chip->MEMSIZE = memory_size(bits);
+
+        chip->MEMORY = calloc(sizeof(int), chip->MEMSIZE);
+        chip->INSTRUCTIONS = malloc(sizeof(instruction) * chip->MEMSIZE);
+
         init_registers(chip);
+
         chip->EXECUTE = true;
+
         return chip;
 }
 
@@ -60,9 +65,9 @@ void load_instructions(chipset *chip, int count)
 }
 
 
-void load_program(chipset *chip, char *program, int size, int memory)
+void load_program(chipset *chip, char *program, int size)
 {
-        for (int i = 0; i < size && i < memory; i++)
+        for (int i = 0; i < size && i < chip->MEMSIZE; i++)
         {
                 chip->MEMORY[i] = map_to_instruction_code(*(program+i));
         }
