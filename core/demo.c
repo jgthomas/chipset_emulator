@@ -16,7 +16,7 @@ int map_to_instruction_code(char c);
 char map_to_input_code(int n);
 void load_program(chipset *chip, char *program, int size);
 void execute_instruction(chipset *chip);
-void execute_program(chipset *chip, int memory);
+void execute_program(chipset *chip);
 
 
 const char *BASE_CODES = "0123456789abcdef";
@@ -33,7 +33,7 @@ int main(void)
         load_instructions(chip, instructions);
         load_program(chip, program, prog_len);
         print_memory(chip);
-        execute_program(chip, memory_size(bits));
+        execute_program(chip);
         printf("result %d\n", chip->R0);
         delete_chipset(chip);
 }
@@ -74,13 +74,13 @@ void load_program(chipset *chip, char *program, int size)
 }
 
 
-void execute_program(chipset *chip, int memory)
+void execute_program(chipset *chip)
 {
         while (chip->EXECUTE)
         {
                 execute_instruction(chip);
 
-                if (chip->PC >= memory)
+                if (chip->PC >= chip->MEMSIZE)
                 {
                         fprintf(stderr, "End reached without termination!\n");
                         exit(EXIT_FAILURE);
