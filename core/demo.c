@@ -43,10 +43,29 @@ chipset *init_chipset(int bits)
 {
         chipset *chip = malloc(sizeof(chipset));
 
+        if (chip == NULL)
+        {
+                fprintf(stderr, "Failed to allocate memory for chip\n");
+                exit(EXIT_FAILURE);
+        }
+
         chip->MEMSIZE = memory_size(bits);
 
         chip->MEMORY = calloc(sizeof(int), chip->MEMSIZE);
+
+        if (chip->MEMORY == NULL)
+        {
+                fprintf(stderr, "Failed to allocate memory for chip memory\n");
+                exit(EXIT_FAILURE);
+        }
+
         chip->INSTRUCTIONS = malloc(sizeof(instruction) * chip->MEMSIZE);
+
+        if (chip->INSTRUCTIONS == NULL)
+        {
+                fprintf(stderr, "Failed to allocate memory for chip instructions\n");
+                exit(EXIT_FAILURE);
+        }
 
         init_registers(chip);
 
