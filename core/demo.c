@@ -31,6 +31,7 @@ int main(void)
         load_instructions(chip, instructions);
         load_program(chip, program, prog_len, memory_size(bits));
         print_memory(chip, memory_size(bits));
+        printf("result %d\n", chip->R0);
         delete_chipset(chip);
 }
 
@@ -61,6 +62,21 @@ void load_program(chipset *chip, char *program, int size, int memory)
         for (int i = 0; i < size && i < memory; i++)
         {
                 chip->MEMORY[i] = map_to_instruction_code(*(program+i));
+        }
+}
+
+
+void execute_instruction(chipset *chip)
+{
+        if (chip->MEMORY[chip->PC] == -1)
+        {
+                fprintf(stderr, "Program contains invalid instruction code\n");
+                exit(EXIT_FAILURE);
+        }
+        else
+        {
+                chip->IR = chip->MEMORY[chip->PC];
+                chip->INSTRUCTIONS[chip->IR](chip);
         }
 }
 
