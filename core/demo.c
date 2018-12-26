@@ -11,6 +11,7 @@ void delete_chipset(chipset *chip);
 void init_registers(chipset *chip);
 void load_instructions(chipset *chip, int count);
 int memory_size(int bits);
+void print_memory(chipset *chip, int memory);
 
 
 const char *BASE_CODES = "0123456789abcdef";
@@ -18,12 +19,16 @@ const char *BASE_CODES = "0123456789abcdef";
 
 int main(void)
 {
-        chipset *chip = init_chipset(4);
-        load_instructions(chip, 16);
+        int bits = 4;
+        int instructions = 16;
+
+        chipset *chip = init_chipset(bits);
+        load_instructions(chip, instructions);
         chip->R0 = 2;
         chip->R1 = 2;
         chip->INSTRUCTIONS[1](chip);
         printf("%d\n", chip->R0);
+        print_memory(chip, memory_size(bits));
         delete_chipset(chip);
 }
 
@@ -46,6 +51,16 @@ void load_instructions(chipset *chip, int count)
         {
                 chip->INSTRUCTIONS[i] = INSTRUCTIONS[i];
         }
+}
+
+
+void print_memory(chipset *chip, int memory)
+{
+        for (int i = 0; i < memory; i++)
+        {
+                printf("%d ", chip->MEMORY[i]);
+        }
+        printf("\n");
 }
 
 
