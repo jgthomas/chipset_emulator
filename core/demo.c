@@ -12,9 +12,6 @@ int memory_size(double bits);
 
 int main(void)
 {
-        printf("%d\n", memory_size(4));
-        printf("%d\n", memory_size(8));
-        printf("%d\n", memory_size(16));
         chipset *chip = init_chipset(4);
         delete_chipset(chip);
 }
@@ -23,7 +20,7 @@ int main(void)
 chipset *init_chipset(double bits)
 {
         int memory = memory_size(bits);
-        chipset *chip = malloc(sizeof(chip));
+        chipset *chip = malloc(sizeof(chipset));
         chip->MEMORY = malloc(sizeof(int) * memory);
         chip->INSTRUCTIONS = malloc(sizeof(instruction) * memory);
         init_registers(chip);

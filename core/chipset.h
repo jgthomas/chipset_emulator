@@ -5,7 +5,7 @@
 
 typedef void (*instruction)(void);
 
-typedef struct chipset {
+typedef struct _chipset {
         int PC;
         int IR;
         int R0;
