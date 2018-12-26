@@ -15,22 +15,6 @@ int memory_size(int bits);
 
 const char *BASE_CODES = "0123456789abcdef";
 
-static void (*INSTRUCTIONS[])() = {halt,
-                                   add,
-                                   subtract,
-                                   increment_r0,
-                                   increment_r1,
-                                   decrement_r0,
-                                   decrement_r1,
-                                   swap,
-                                   print,
-                                   load_into_r0,
-                                   load_into_r1,
-                                   store_r0_in_address,
-                                   store_r1_in_address,
-                                   jump_to_address,
-                                   jump_if_r0_zero,
-                                   jump_if_r0_not_zero};
 
 int main(void)
 {
