@@ -11,7 +11,7 @@ void delete_chipset(chipset *chip);
 void init_registers(chipset *chip);
 void load_instructions(chipset *chip, int count);
 int memory_size(int bits);
-void print_memory(chipset *chip, int memory);
+void print_memory(chipset *chip);
 int map_to_instruction_code(char c);
 char map_to_input_code(int n);
 void load_program(chipset *chip, char *program, int size);
@@ -32,7 +32,7 @@ int main(void)
         chipset *chip = init_chipset(bits);
         load_instructions(chip, instructions);
         load_program(chip, program, prog_len);
-        print_memory(chip, memory_size(bits));
+        print_memory(chip);
         execute_program(chip, memory_size(bits));
         printf("result %d\n", chip->R0);
         delete_chipset(chip);
@@ -104,9 +104,9 @@ void execute_instruction(chipset *chip)
 }
 
 
-void print_memory(chipset *chip, int memory)
+void print_memory(chipset *chip)
 {
-        for (int i = 0; i < memory; i++)
+        for (int i = 0; i < chip->MEMSIZE; i++)
         {
                 printf("%d ", chip->MEMORY[i]);
         }
