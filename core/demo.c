@@ -4,10 +4,10 @@
 #include <math.h>
 #include "chipset.h"
 
-chipset *init_chipset(double bits);
+chipset *init_chipset(int bits);
 void delete_chipset(chipset *chip);
 void init_registers(chipset *chip);
-int memory_size(double bits);
+int memory_size(int bits);
 
 
 int main(void)
@@ -17,7 +17,7 @@ int main(void)
 }
 
 
-chipset *init_chipset(double bits)
+chipset *init_chipset(int bits)
 {
         int memory = memory_size(bits);
         chipset *chip = malloc(sizeof(chipset));
@@ -46,7 +46,7 @@ void delete_chipset(chipset *chip)
 }
 
 
-int memory_size(double bits)
+int memory_size(int bits)
 {
-        return (int) pow(2, bits);
+        return (int) pow(2, (double) bits);
 }
