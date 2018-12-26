@@ -6,7 +6,7 @@
 struct chipset;
 typedef struct chipset chipset;
 
-typedef void (*instruction)(chipset);
+typedef void (*instruction)(chipset*);
 
 struct chipset {
         int PC;
