@@ -4,6 +4,7 @@
 #include <math.h>
 #include "chipset.h"
 #include "instructions.h"
+#include "load.h"
 
 
 chipset *init_chipset(int bits);
@@ -12,8 +13,6 @@ void init_registers(chipset *chip);
 void load_instructions(chipset *chip, int count);
 int memory_size(int bits);
 void print_memory(chipset *chip);
-int map_to_instruction_code(char c);
-char map_to_input_code(int n);
 void load_program(chipset *chip, char *program, int size);
 void execute_instruction(chipset *chip);
 void execute_program(chipset *chip);
@@ -26,12 +25,16 @@ int main(void)
 {
         int bits = 4;
         int instructions = 16;
-        char *program = "3334444";
-        int prog_len = 7;
+        char *program = "03 03 03 04 04 04 04";
+
+        char *hex = "ff";
+        printf("%d\n", convert_code(hex));
 
         chipset *chip = init_chipset(bits);
         load_instructions(chip, instructions);
-        load_program(chip, program, prog_len);
+
+        load(chip, program);
+
         print_memory(chip);
         execute_program(chip);
         printf("result %d\n", chip->R0);
@@ -80,15 +83,6 @@ void load_instructions(chipset *chip, int count)
         for (int i = 0; i < count; i++)
         {
                 chip->INSTRUCTIONS[i] = INSTRUCTIONS[i];
-        }
-}
-
-
-void load_program(chipset *chip, char *program, int size)
-{
-        for (int i = 0; i < size && i < chip->MEMSIZE; i++)
-        {
-                chip->MEMORY[i] = map_to_instruction_code(*(program+i));
         }
 }
 
@@ -157,35 +151,35 @@ int memory_size(int bits)
 
 /* translate between input and instruction codes */
 
-int map_to_instruction_code(char c)
-{
-        if (c >= '0' && c <= '9')
-        {
-                return (int)c - '0';
-        }
-        else if (c >= 'a' && c <= 'f')
-        {
-                return (int)(c - 'a') + 10;
-        }
-        else
-        {
-                return -1;
-        }
-}
-
-
-char map_to_input_code(int n)
-{
-        if (n >= 0 && n <= 9)
-        {
-                return (char)n + '0';
-        }
-        else if (n >= 10 && n <= 15)
-        {
-                return (char)(n + 'a') - 10;
-        }
-        else
-        {
-                return '0';
-        }
-}
+//int map_to_instruction_code(char c)
+//{
+//        if (c >= '0' && c <= '9')
+//        {
+//                return (int)c - '0';
+//        }
+//        else if (c >= 'a' && c <= 'f')
+//        {
+//                return (int)(c - 'a') + 10;
+//        }
+//        else
+//        {
+//                return -1;
+//        }
+//}
+//
+//
+//char map_to_input_code(int n)
+//{
+//        if (n >= 0 && n <= 9)
+//        {
+//                return (char)n + '0';
+//        }
+//        else if (n >= 10 && n <= 15)
+//        {
+//                return (char)(n + 'a') - 10;
+//        }
+//        else
+//        {
+//                return '0';
+//        }
+//}
