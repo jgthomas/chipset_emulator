@@ -21,8 +21,18 @@ void load_program(chipset *chip, char *program)
 
         while ( (token = strsep(&p, " ")) != NULL && i < chip->MEMSIZE)
         {
-                chip->MEMORY[i] = convert_code(token);
-                i++;
+                int op_code = convert_code(token);
+
+                if (op_code < chip->MEMSIZE)
+                {
+                        chip->MEMORY[i] = convert_code(token);
+                        i++;
+                }
+                else
+                {
+                        fprintf(stderr, "Memory overflow");
+                        exit(EXIT_FAILURE);
+                }
         }
 
         if (start)
