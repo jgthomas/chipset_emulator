@@ -22,8 +22,7 @@ void testANSWER_THREE(void)
 
         int answer = 3;
 
-        chipset *chip = init_chipset(4);
-        load_instructions(chip, 16);
+        chipset *chip = init_chip(4, 16);
 
         for (int i = 0; i < num_tests; i++)
         {
@@ -53,8 +52,7 @@ void testUSING_ALL_INSTRUCTIONS(void)
 
         int answer[] = {1,3,4,2,7,15,4};
 
-        chipset *chip = init_chipset(4);
-        load_instructions(chip, 16);
+        chipset *chip = init_chip(4, 16);
 
         for (int i = 0; i < num_tests; i++)
         {
@@ -75,8 +73,7 @@ void testMANY_DIFFERENT_INSTRUCTIONS(void)
 
         int answer[] = {14,15};
 
-        chipset *chip = init_chipset(4);
-        load_instructions(chip, 16);
+        chipset *chip = init_chip(4, 16);
 
         for (int i = 0; i < num_tests; i++)
         {
