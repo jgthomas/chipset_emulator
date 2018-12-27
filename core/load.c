@@ -11,7 +11,7 @@ int convert_code(char *hex)
 }
 
 
-void load(chipset *chip, char *program)
+void load_program(chipset *chip, char *program)
 {
         // make copy to allow freeing of memory and to handle literals
         char *p, *start;

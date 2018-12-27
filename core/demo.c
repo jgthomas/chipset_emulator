@@ -13,7 +13,6 @@ void init_registers(chipset *chip);
 void load_instructions(chipset *chip, int count);
 int memory_size(int bits);
 void print_memory(chipset *chip);
-void load_program(chipset *chip, char *program, int size);
 void execute_instruction(chipset *chip);
 void execute_program(chipset *chip);
 
@@ -27,17 +26,18 @@ int main(void)
         int instructions = 16;
         char *program = "03 03 03 04 04 04 04";
 
-        char *hex = "ff";
-        printf("%d\n", convert_code(hex));
-
         chipset *chip = init_chipset(bits);
+
         load_instructions(chip, instructions);
 
-        load(chip, program);
+        load_program(chip, program);
 
         print_memory(chip);
+
         execute_program(chip);
+
         printf("result %d\n", chip->R0);
+
         delete_chipset(chip);
 }
 
