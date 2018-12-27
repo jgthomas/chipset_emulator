@@ -55,8 +55,6 @@ chipset *init_chipset(int bits)
 
         init_registers(chip);
 
-        chip->EXECUTE = true;
-
         return chip;
 }
 
@@ -125,6 +123,7 @@ void init_registers(chipset *chip)
         chip->IR = 0;
         chip->R0 = 0;
         chip->R1 = 0;
+        chip->EXECUTE = true;
 }
 
 
