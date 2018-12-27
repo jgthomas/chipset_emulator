@@ -28,7 +28,6 @@ void testANSWER_THREE(void)
         for (int i = 0; i < num_tests; i++)
         {
                 int result = execute(chip, tests[i]);
-                printf("result: %d\n", result);
                 CU_ASSERT_TRUE(answer == result);
         }
 
@@ -40,32 +39,31 @@ void testANSWER_THREE(void)
  * Each test features an instruction in turn
  *
  * */
-//void testUSING_ALL_INSTRUCTIONS(void)
-//{
-//        char *tests[] = {"03",
-//                         "04 04 04 01",
-//                         "04 04 04 04 04 01 05",
-//                         "03 03 07 01 01 07",
-//                         "09 03 00 07",
-//                         "0a 04 07 00 0f",
-//                         "03 03 03 03 0b 0f 05 05 05 05 09 0f 00"};
-//
-//        int num_tests = sizeof(tests) / sizeof(tests[0]);
-//
-//        int answer[] = {1,3,4,2,7,15,4};
-//
-//        chipset *chip = init_chipset(4);
-//        load_instructions(chip, 16);
-//
-//        for (int i = 0; i < num_tests; i++)
-//        {
-//                int result = execute(chip, tests[i]);
-//                printf("result: %d\n", result);
-//                CU_ASSERT_TRUE(answer[i] == result);
-//        }
-//
-//        delete_chipset(chip);
-//}
+void testUSING_ALL_INSTRUCTIONS(void)
+{
+        char *tests[] = {"03",
+                         "04 04 04 01",
+                         "04 04 04 04 04 01 05",
+                         "03 03 07 01 01 07",
+                         "09 03 00 07",
+                         "0a 04 07 00 0f",
+                         "03 03 03 03 0b 0f 05 05 05 05 09 0f 00"};
+
+        int num_tests = sizeof(tests) / sizeof(tests[0]);
+
+        int answer[] = {1,3,4,2,7,15,4};
+
+        chipset *chip = init_chipset(4);
+        load_instructions(chip, 16);
+
+        for (int i = 0; i < num_tests; i++)
+        {
+                int result = execute(chip, tests[i]);
+                CU_ASSERT_TRUE(answer[i] == result);
+        }
+
+        delete_chipset(chip);
+}
 
 
 //void testMANY_DIFFERENT_INSTRUCTIONS(void)
@@ -107,7 +105,8 @@ int main(void)
         }
 
         // add tests
-        if (NULL == CU_add_test(suite, "The answer is three", testANSWER_THREE))
+        if (NULL == CU_add_test(suite, "The answer is three", testANSWER_THREE) ||
+            NULL == CU_add_test(suite, "All 4-bit instructions", testUSING_ALL_INSTRUCTIONS))
         {
                 CU_cleanup_registry();
                 return CU_get_error();
