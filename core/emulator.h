@@ -10,5 +10,6 @@ int execute(chipset *chip, char *program);
 void execute_program(chipset *chip);
 void delete_chipset(chipset *chip);
 void print_memory(chipset *chip);
+int debug(chipset *chip, char *program);
 
 #endif

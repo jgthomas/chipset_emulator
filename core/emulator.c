@@ -6,6 +6,7 @@
 #include "chipset.h"
 #include "instructions.h"
 #include "emulator.h"
+#include "debugger.h"
 
 
 void init_registers(chipset *chip);
@@ -21,6 +22,33 @@ int execute(chipset *chip, char *program)
         clear_memory(chip);
         load_program(chip, program);
         execute_program(chip);
+        return chip->R0;
+}
+
+
+int debug(chipset *chip, char *program)
+{
+        init_registers(chip);
+        clear_memory(chip);
+        load_program(chip, program);
+
+        int step = -1;
+
+        print_header(chip, step);
+        print_chipset(chip, 0);
+
+        while (chip->EXECUTE)
+        {
+                printf("\nPress ENTER to continue\n");
+                getchar();
+
+                step++;
+                print_header(chip, step);
+                int prev_pc = chip->PC;
+                execute_instruction(chip);
+                print_chipset(chip, prev_pc);
+        }
+
         return chip->R0;
 }
 
@@ -107,14 +135,14 @@ void clear_memory(chipset *chip)
 }
 
 
-void print_memory(chipset *chip)
-{
-        for (int i = 0; i < chip->MEMSIZE; i++)
-        {
-                printf("%d ", chip->MEMORY[i]);
-        }
-        printf("\n");
-}
+//void print_memory(chipset *chip)
+//{
+//        for (int i = 0; i < chip->MEMSIZE; i++)
+//        {
+//                printf("%d ", chip->MEMORY[i]);
+//        }
+//        printf("\n");
+//}
 
 
 void init_registers(chipset *chip)

@@ -13,7 +13,7 @@ int main(void)
         chipset *chip = init_chipset(bits);
         load_instructions(chip, instructions);
 
-        printf("result: %d\n", execute(chip, program));
+        printf("result: %d\n", debug(chip, program));
 
         delete_chipset(chip);
 }
