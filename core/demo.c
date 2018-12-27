@@ -148,38 +148,3 @@ int memory_size(int bits)
 {
         return (int) pow(2, (double) bits);
 }
-
-/* translate between input and instruction codes */
-
-//int map_to_instruction_code(char c)
-//{
-//        if (c >= '0' && c <= '9')
-//        {
-//                return (int)c - '0';
-//        }
-//        else if (c >= 'a' && c <= 'f')
-//        {
-//                return (int)(c - 'a') + 10;
-//        }
-//        else
-//        {
-//                return -1;
-//        }
-//}
-//
-//
-//char map_to_input_code(int n)
-//{
-//        if (n >= 0 && n <= 9)
-//        {
-//                return (char)n + '0';
-//        }
-//        else if (n >= 10 && n <= 15)
-//        {
-//                return (char)(n + 'a') - 10;
-//        }
-//        else
-//        {
-//                return '0';
-//        }
-//}
