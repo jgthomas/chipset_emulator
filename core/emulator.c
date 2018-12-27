@@ -1,23 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 #include <math.h>
 #include "chipset.h"
 #include "instructions.h"
-#include "load.h"
+#include "emulator.h"
 
 
-chipset *init_chipset(int bits);
 void delete_chipset(chipset *chip);
 void init_registers(chipset *chip);
-void load_instructions(chipset *chip, int count);
 int memory_size(int bits);
 void print_memory(chipset *chip);
 void execute_instruction(chipset *chip);
-void execute_program(chipset *chip);
-
-
-const char *BASE_CODES = "0123456789abcdef";
+int convert_code(char *hex);
 
 
 int main(void)
@@ -147,4 +143,42 @@ void delete_chipset(chipset *chip)
 int memory_size(int bits)
 {
         return (int) pow(2, (double) bits);
+}
+
+
+int convert_code(char *hex)
+{
+        return (int) strtol(hex, NULL, 16);
+}
+
+
+void load_program(chipset *chip, char *program)
+{
+        // make copy to allow freeing of memory and to handle literals
+        char *p, *start;
+        p = start = strdup(program);
+
+        char *token;
+        int i = 0;
+
+        while ( (token = strsep(&p, " ")) != NULL && i < chip->MEMSIZE)
+        {
+                int op_code = convert_code(token);
+
+                if (op_code < chip->MEMSIZE)
+                {
+                        chip->MEMORY[i] = op_code;
+                        i++;
+                }
+                else
+                {
+                        fprintf(stderr, "Memory overflow");
+                        exit(EXIT_FAILURE);
+                }
+        }
+
+        if (start)
+        {
+                free(start);
+        }
 }
