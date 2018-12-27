@@ -14,6 +14,10 @@ int memory_size(int bits);
 void execute_instruction(chipset *chip);
 int convert_code(char *hex);
 void clear_memory(chipset *chip);
+void load_program(chipset *chip, char *program);
+void execute_program(chipset *chip);
+void load_instructions(chipset *chip, int count);
+chipset *init_chipset(int bits);
 
 
 int execute(chipset *chip, char *program)
@@ -50,6 +54,14 @@ int debug(chipset *chip, char *program)
         }
 
         return chip->R0;
+}
+
+
+chipset *init_chip(int bits, int instruction_count)
+{
+        chipset *chip = init_chipset(bits);
+        load_instructions(chip, instruction_count);
+        return chip;
 }
 
 
@@ -133,16 +145,6 @@ void clear_memory(chipset *chip)
                 chip->MEMORY[i] = 0;
         }
 }
-
-
-//void print_memory(chipset *chip)
-//{
-//        for (int i = 0; i < chip->MEMSIZE; i++)
-//        {
-//                printf("%d ", chip->MEMORY[i]);
-//        }
-//        printf("\n");
-//}
 
 
 void init_registers(chipset *chip)

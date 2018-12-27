@@ -10,8 +10,7 @@ int main(void)
         int instructions = 16;
         char *program = "03 03 03 04 04 04 04 07";
 
-        chipset *chip = init_chipset(bits);
-        load_instructions(chip, instructions);
+        chipset *chip = init_chip(bits, instructions);
 
         printf("result: %d\n", execute(chip, program));
         printf("result: %d\n", debug(chip, program));
