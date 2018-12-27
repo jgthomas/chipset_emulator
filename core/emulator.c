@@ -14,6 +14,14 @@ void execute_instruction(chipset *chip);
 int convert_code(char *hex);
 
 
+int execute(chipset *chip, char *program)
+{
+        load_program(chip, program);
+        execute_program(chip);
+        return chip->R0;
+}
+
+
 chipset *init_chipset(int bits)
 {
         chipset *chip = malloc(sizeof(chipset));

@@ -11,16 +11,9 @@ int main(void)
         char *program = "03 03 03 04 04 04 04";
 
         chipset *chip = init_chipset(bits);
-
         load_instructions(chip, instructions);
 
-        load_program(chip, program);
-
-        print_memory(chip);
-
-        execute_program(chip);
-
-        printf("result %d\n", chip->R0);
+        printf("result: %d\n", execute(chip, program));
 
         delete_chipset(chip);
 }
