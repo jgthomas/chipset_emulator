@@ -8,34 +8,10 @@
 #include "emulator.h"
 
 
-void delete_chipset(chipset *chip);
 void init_registers(chipset *chip);
 int memory_size(int bits);
-void print_memory(chipset *chip);
 void execute_instruction(chipset *chip);
 int convert_code(char *hex);
-
-
-int main(void)
-{
-        int bits = 4;
-        int instructions = 16;
-        char *program = "03 03 03 04 04 04 04";
-
-        chipset *chip = init_chipset(bits);
-
-        load_instructions(chip, instructions);
-
-        load_program(chip, program);
-
-        print_memory(chip);
-
-        execute_program(chip);
-
-        printf("result %d\n", chip->R0);
-
-        delete_chipset(chip);
-}
 
 
 chipset *init_chipset(int bits)
