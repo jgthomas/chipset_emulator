@@ -26,8 +26,8 @@ TARGET = $(BUILD_DIR)/$(BIN)
 # FILES
 PWD_HEADERS := $(wildcard *.h)
 PWD_SOURCES := $(wildcard *.c)
-HEADERS = $(PWD_HEADERS) emulator.h instructions.h chipset.h
-SOURCES = $(PWD_SOURCES) emulator.c instructions.c
+HEADERS = $(PWD_HEADERS) emulator.h instructions.h chipset.h debugger.h descriptions.h
+SOURCES = $(PWD_SOURCES) emulator.c instructions.c debugger.c descriptions.c
 OBJECTS := $(SOURCES:%.c=$(BUILD_DIR)/%.o)
 DEPENDS = $(OBJECTS:%.o=%.d)
 
