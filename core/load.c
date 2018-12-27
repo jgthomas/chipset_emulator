@@ -4,7 +4,6 @@
 #include "chipset.h"
 
 
-
 int convert_code(char *hex)
 {
         return (int) strtol(hex, NULL, 16);
