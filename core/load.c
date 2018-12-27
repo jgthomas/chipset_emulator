@@ -25,7 +25,7 @@ void load_program(chipset *chip, char *program)
 
                 if (op_code < chip->MEMSIZE)
                 {
-                        chip->MEMORY[i] = convert_code(token);
+                        chip->MEMORY[i] = op_code;
                         i++;
                 }
                 else
