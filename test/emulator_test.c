@@ -28,8 +28,11 @@ void testANSWER_THREE(void)
         for (int i = 0; i < num_tests; i++)
         {
                 int result = execute(chip, tests[i]);
+                printf("result: %d\n", result);
                 CU_ASSERT_TRUE(answer == result);
         }
+
+        delete_chipset(chip);
 }
 
 
@@ -51,16 +54,20 @@ void testANSWER_THREE(void)
 //
 //        int answer[] = {1,3,4,2,7,15,4};
 //
-//        init_chip(BASE_CODES);
+//        chipset *chip = init_chipset(4);
+//        load_instructions(chip, 16);
 //
 //        for (int i = 0; i < num_tests; i++)
 //        {
-//                int result = emulate(tests[i], strlen(tests[i]));
+//                int result = execute(chip, tests[i]);
+//                printf("result: %d\n", result);
 //                CU_ASSERT_TRUE(answer[i] == result);
 //        }
+//
+//        delete_chipset(chip);
 //}
-//
-//
+
+
 //void testMANY_DIFFERENT_INSTRUCTIONS(void)
 //{
 //        char *tests[] = {"03 04 01 05 06 07 08 0b 09 0c 0d 09 0a 07",
