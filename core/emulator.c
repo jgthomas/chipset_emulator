@@ -14,7 +14,7 @@
 void init_registers(chipset *chip);
 int memory_size(int bits);
 void execute_instruction(chipset *chip);
-int convert_code(char *hex, int bits);
+int convert_code(char *hex);
 void clear_memory(chipset *chip);
 void load_program(chipset *chip, char *program);
 void execute_program(chipset *chip);
@@ -174,7 +174,7 @@ int memory_size(int bits)
 }
 
 
-int convert_code(char *hex, int bits)
+int convert_code(char *hex)
 {
         errno = 0;
         char *endptr;
@@ -206,12 +206,6 @@ int convert_code(char *hex, int bits)
 
         int op_code = (int) op;
 
-        if (op_code >= bits)
-        {
-                fprintf(stderr, "Op code '%d' cannot fit in memory\n", op_code);
-                exit(EXIT_FAILURE);
-        }
-
         return op_code;
 }
 
@@ -227,7 +221,7 @@ void load_program(chipset *chip, char *program)
 
         while ( (token = strsep(&p, " ")) != NULL && i < chip->MEMSIZE)
         {
-                int op_code = convert_code(token, chip->MEMSIZE);
+                int op_code = convert_code(token);
 
                 if (op_code < chip->MEMSIZE)
                 {
@@ -236,7 +230,7 @@ void load_program(chipset *chip, char *program)
                 }
                 else
                 {
-                        fprintf(stderr, "Memory overflow");
+                        fprintf(stderr, "Op code '%d' cannot fit in memory\n", op_code);
                         exit(EXIT_FAILURE);
                 }
         }

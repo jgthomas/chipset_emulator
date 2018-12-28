@@ -26,7 +26,7 @@ OP_CODE_CONVERT op_code_table[] = {
 
 
 void usage(void);
-int op_code(char *instruction, int bits);
+int op_code(char *instruction);
 
 
 int main(int argc, char **argv)
@@ -57,7 +57,7 @@ int main(int argc, char **argv)
 
                 while ( (found = strsep(&line, ",")) != NULL)
                 {
-                        int code = op_code(found, 16);
+                        int code = op_code(found);
                         snprintf(program_buffer+counter, 4, "%02x ", code);
                         counter += 3;
                 }
@@ -96,7 +96,7 @@ int main(int argc, char **argv)
 }
 
 
-int op_code(char *instruction, int bits)
+int op_code(char *instruction)
 {
         for (int i = 0; i < INSTRUCTION_NUM; i++)
         {
@@ -106,7 +106,7 @@ int op_code(char *instruction, int bits)
                 }
         }
 
-        return convert_code(instruction, bits);
+        return convert_code(instruction);
 }
 
 
