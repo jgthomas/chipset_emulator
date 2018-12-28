@@ -14,7 +14,7 @@
 void init_registers(chipset *chip);
 int memory_size(int bits);
 void execute_instruction(chipset *chip);
-int convert_code(char *hex);
+int convert_code(char *hex, int bits);
 void clear_memory(chipset *chip);
 void load_program(chipset *chip, char *program);
 void execute_program(chipset *chip);
@@ -173,16 +173,16 @@ int memory_size(int bits)
 }
 
 
-int convert_code(char *hex)
+int convert_code(char *hex, int bits)
 {
         errno = 0;
         char *endptr;
 
-        long op_code = strtol(hex, &endptr, 16);
+        long op = strtol(hex, &endptr, 16);
 
         if (errno == ERANGE)
         {
-                switch(op_code)
+                switch(op)
                 {
                         case LONG_MIN:
                                 fprintf(stderr, "Underflow: op code too high\n");
@@ -190,7 +190,6 @@ int convert_code(char *hex)
                         case LONG_MAX:
                                 fprintf(stderr, "Overflow: op code too low\n");
                                 exit(EXIT_FAILURE);
-
                 }
         }
         else if (errno != 0)
@@ -204,7 +203,15 @@ int convert_code(char *hex)
                 exit(EXIT_FAILURE);
         }
 
-        return (int) op_code;
+        int op_code = (int) op;
+
+        if (op_code >= bits)
+        {
+                fprintf(stderr, "Op code '%d' cannot fit in memory\n", op_code);
+                exit(EXIT_FAILURE);
+        }
+
+        return op_code;
 }
 
 
@@ -219,7 +226,7 @@ void load_program(chipset *chip, char *program)
 
         while ( (token = strsep(&p, " ")) != NULL && i < chip->MEMSIZE)
         {
-                int op_code = convert_code(token);
+                int op_code = convert_code(token, chip->MEMSIZE);
 
                 if (op_code < chip->MEMSIZE)
                 {
