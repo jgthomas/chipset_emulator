@@ -8,8 +8,7 @@
 #include "emulator.h"
 
 
-//bool valid_codes(char *codes);
-//void print_help(const char *codes, bool debug);
+void print_help(bool debug);
 //void print_instructions(const char *codes);
 void input(char program[], int size);
 void run_program(chipset *chip, char *program);
@@ -50,18 +49,20 @@ int main(int argc, char **argv)
                 }
         }
 
+        print_help(debug);
+
         while (true)
         {
                 char program[256];
                 input(program, sizeof(program));
                 program[strcspn(program, "\n")] = '\0';
 
-                //if (strncmp(program, "help", 4) == 0)
-                //{
-                //        clear_screen();
-                //        print_help(BASE_CODES, debug);
-                //}
-                if (strncmp(program, "clear", 5) == 0)
+                if (strncmp(program, "help", 4) == 0)
+                {
+                        clear_screen();
+                        print_help(debug);
+                }
+                else if (strncmp(program, "clear", 5) == 0)
                 {
                         clear_screen();
                 }
@@ -69,13 +70,13 @@ int main(int argc, char **argv)
                 {
                         debug = true;
                         clear_screen();
-                        //print_help(BASE_CODES, debug);
+                        print_help(debug);
                 }
                 else if (strncmp(program, "normal", 6) == 0)
                 {
                         debug = false;
                         clear_screen();
-                        //print_help(BASE_CODES, debug);
+                        print_help(debug);
                 }
                 else if (strncmp(program, "quit", 4) == 0)
                 {
@@ -123,17 +124,6 @@ void input(char program[], int size)
 }
 
 
-//bool valid_codes(char *codes)
-//{
-//        if (strlen(codes) != MEM)
-//        {
-//                return false;
-//        }
-//
-//        return true;
-//}
-
-
 void clear_screen(void)
 {
         const char *clear_screen_unix = "\e[1;1H\e[2J";
@@ -154,13 +144,13 @@ void clear_screen(void)
 //}
 //
 //
-//void print_help(const char *codes, bool debug)
-//{
-//        if (debug)
-//        {
-//                printf("\nDEBUG MODE\n");
-//        }
-//
-//        print_instructions(codes);
-//        printf("Type 'quit' to exit, 'clear' to clear screen,  or 'help' to display all instructions\n\n");
-//}
+void print_help(bool debug)
+{
+        if (debug)
+        {
+                printf("\nDEBUG MODE\n");
+        }
+
+        //print_instructions(codes);
+        printf("Type 'quit' to exit, 'clear' to clear screen,  or 'help' to display all instructions\n\n");
+}
