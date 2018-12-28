@@ -16,7 +16,7 @@ vpath %.c $(SOURCE)
 # COMPILER - with flags and libraries to link
 CC = gcc
 CFLAGS = -g -Wall -Wextra -Werror $(foreach dir, $(INCLUDES), -I$(dir))
-LDLIBS =
+LDLIBS = -lm
 
 # EXECUTABLE - the final binary file
 BUILD_DIR = ./build
@@ -26,8 +26,8 @@ TARGET = $(BUILD_DIR)/$(BIN)
 # FILES
 PWD_HEADERS := $(wildcard *.h)
 PWD_SOURCES := $(wildcard *.c)
-HEADERS = $(PWD_HEADERS) emulator_4917.h instructions.h 4917_debugger.h descriptions.h
-SOURCES = $(PWD_SOURCES) emulator_4917.c instructions.c 4917_debugger.c descriptions.c
+HEADERS = $(PWD_HEADERS) emulator.h instructions.h debugger.h descriptions.h
+SOURCES = $(PWD_SOURCES) emulator.c instructions.c debugger.c descriptions.c
 OBJECTS := $(SOURCES:%.c=$(BUILD_DIR)/%.o)
 DEPENDS = $(OBJECTS:%.o=%.d)
 

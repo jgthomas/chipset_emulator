@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "emulator.h"
+#include "chipset.h"
 
 
 void run_program(char *filename);
@@ -29,27 +30,27 @@ int main(int argc, char **argv) {
 
 void run_program(char *filename)
 {
-        char *prog_to_run = read_in_program(filename);
+        char *program = read_in_program(filename);
 
-        init_chip(BASE_CODES);
-
-        int result = emulate(prog_to_run, strlen(prog_to_run));
+        chipset *chip = init_chip(4, 16);
+        int result = execute(chip, program);
         printf("%d\n", result);
 
-        free(prog_to_run);
+        free(program);
+        delete_chipset(chip);
 }
 
 
 void run_debug(char *filename)
 {
-        char *prog_to_run = read_in_program(filename);
+        char *program = read_in_program(filename);
 
-        init_chip(BASE_CODES);
-
-        int result = debug(prog_to_run, strlen(prog_to_run));
+        chipset *chip = init_chip(4, 16);
+        int result = debug(chip, program);
         printf("%d\n", result);
 
-        free(prog_to_run);
+        free(program);
+        delete_chipset(chip);
 }
 
 
