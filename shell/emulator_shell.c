@@ -18,13 +18,16 @@ void clear_screen(void);
 
 int main(int argc, char **argv)
 {
-        chipset *chip;
         bool debug = false;
 
         if (argc == 2 && (strncmp(argv[1],"d", 1) == 0))
         {
                 debug = true;
         }
+
+        chipset *chip;
+        int bits;
+        int instruction_count;
 
         while (true)
         {
@@ -35,18 +38,22 @@ int main(int argc, char **argv)
 
                 if (strncmp(choice, "4", 1) == 0)
                 {
-                        chip = init_chip(4, 16);
-                        break;
+                        bits = 4;
+                        instruction_count = 16;
                 }
                 else if (strncmp(choice, "8", 1) == 0)
                 {
-                        chip = init_chip(8, 16);
-                        break;
+                        bits = 8;
+                        instruction_count = 16;
                 }
                 else
                 {
                         fprintf(stderr, "Invalid chip bits\n");
+                        continue;
                 }
+
+                chip = init_chip(bits, instruction_count);
+                break;
         }
 
         print_help(debug);
