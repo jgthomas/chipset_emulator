@@ -29,7 +29,8 @@ int main(int argc, char **argv)
 
         while (true)
         {
-                char choice[256];
+                char choice[3];
+                printf("select '4' or '8' bit chip\n");
                 input(choice, sizeof(choice));
                 choice[strcspn(choice, "\n")] = '\0';
 
