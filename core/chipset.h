@@ -13,6 +13,7 @@ struct chipset {
         int IR;
         int R0;
         int R1;
+        int BITS;
         int MEMSIZE;
         int *MEMORY;
         bool EXECUTE;

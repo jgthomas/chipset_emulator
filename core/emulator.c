@@ -77,6 +77,7 @@ chipset *init_chipset(int bits)
                 exit(EXIT_FAILURE);
         }
 
+        chip->BITS = bits;
         chip->MEMSIZE = memory_size(bits);
 
         chip->MEMORY = calloc(sizeof(int), chip->MEMSIZE);
