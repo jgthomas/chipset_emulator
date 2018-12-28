@@ -198,9 +198,8 @@ int convert_code(char *hex, int bits)
                 fprintf(stderr, "Unidentified op code error\n");
                 exit(EXIT_FAILURE);
         }
-        else if ( (*endptr != '\0' || *endptr != '\n' || *endptr != '\r') && *hex == '\0')
+        else if (*endptr != '\0' && *endptr != '\n')
         {
-                printf("%d\n", *endptr);
                 fprintf(stderr, "Invalid instruction provided\n");
                 exit(EXIT_FAILURE);
         }
