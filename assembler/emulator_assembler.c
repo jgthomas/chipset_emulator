@@ -31,7 +31,6 @@ int op_code(char *instruction, int bits);
 
 int main(int argc, char **argv)
 {
-
         if (argc < 2)
         {
                 usage();
