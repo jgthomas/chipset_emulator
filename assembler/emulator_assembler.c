@@ -27,6 +27,7 @@ OP_CODE_CONVERT op_code_table[] = {
 
 void usage(void);
 int op_code(char *instruction);
+void write_machine_code(char *outfile, char buffer[16]);
 
 
 int main(int argc, char **argv)
@@ -51,17 +52,32 @@ int main(int argc, char **argv)
         size_t len = 0;
         char *found;
 
+        char *l, *start;
+
         while ((getline(&line, &len, fp)) != -1)
         {
                 line[strcspn(line, "\r\n")] = 0;
 
-                while ( (found = strsep(&line, ",")) != NULL)
+                l = start = strdup(line);
+
+                while ( (found = strsep(&l, ",")) != NULL)
                 {
                         int code = op_code(found);
                         snprintf(program_buffer+counter, 4, "%02x ", code);
                         counter += 3;
                 }
+
+                if (start)
+                {
+                        free(start);
+                }
         }
+
+        if (line)
+        {
+                free(line);
+        }
+
 
         char *outfile;
 
@@ -74,6 +90,16 @@ int main(int argc, char **argv)
                 outfile = "output.o";
         }
 
+        write_machine_code(outfile, program_buffer);
+
+        fclose(fp);
+
+        exit(EXIT_SUCCESS);
+}
+
+
+void write_machine_code(char *outfile, char buffer[16])
+{
         FILE *fp2 = fopen(outfile, "w");
 
         if (fp2 == NULL)
@@ -82,17 +108,8 @@ int main(int argc, char **argv)
                 exit(EXIT_FAILURE);
         }
 
-        fprintf(fp2, "%s", program_buffer);
-
-        fclose(fp);
+        fprintf(fp2, "%s", buffer);
         fclose(fp2);
-
-        if (line)
-        {
-                free(line);
-        }
-
-        exit(EXIT_SUCCESS);
 }
 
 
