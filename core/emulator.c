@@ -3,6 +3,8 @@
 #include <stdbool.h>
 #include <string.h>
 #include <math.h>
+#include <errno.h>
+#include <limits.h>
 #include "chipset.h"
 #include "instructions.h"
 #include "emulator.h"
@@ -173,7 +175,36 @@ int memory_size(int bits)
 
 int convert_code(char *hex)
 {
-        return (int) strtol(hex, NULL, 16);
+        errno = 0;
+        char *endptr;
+
+        long op_code = strtol(hex, &endptr, 16);
+
+        if (errno == ERANGE)
+        {
+                switch(op_code)
+                {
+                        case LONG_MIN:
+                                fprintf(stderr, "Underflow: op code too high\n");
+                                exit(EXIT_FAILURE);
+                        case LONG_MAX:
+                                fprintf(stderr, "Overflow: op code too low\n");
+                                exit(EXIT_FAILURE);
+
+                }
+        }
+        else if (errno != 0)
+        {
+                fprintf(stderr, "Unidentified op code error\n");
+                exit(EXIT_FAILURE);
+        }
+        else if (*endptr != '\0' || *hex == '\0')
+        {
+                fprintf(stderr, "Invalid instruction provided\n");
+                exit(EXIT_FAILURE);
+        }
+
+        return (int) op_code;
 }
 
 
