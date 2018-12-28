@@ -8,8 +8,8 @@
 #include "emulator.h"
 
 
-void print_help(bool debug);
-//void print_instructions(const char *codes);
+void print_help(bool debug, int instruction_count);
+void print_instructions(int instruction_count);
 void input(char program[], int size);
 void run_program(chipset *chip, char *program);
 void run_debug(chipset *chip, char *program);
@@ -56,7 +56,7 @@ int main(int argc, char **argv)
                 break;
         }
 
-        print_help(debug);
+        print_help(debug, instruction_count);
 
         while (true)
         {
@@ -67,7 +67,7 @@ int main(int argc, char **argv)
                 if (strncmp(program, "help", 4) == 0)
                 {
                         clear_screen();
-                        print_help(debug);
+                        print_help(debug, instruction_count);
                 }
                 else if (strncmp(program, "clear", 5) == 0)
                 {
@@ -77,13 +77,13 @@ int main(int argc, char **argv)
                 {
                         debug = true;
                         clear_screen();
-                        print_help(debug);
+                        print_help(debug, instruction_count);
                 }
                 else if (strncmp(program, "normal", 6) == 0)
                 {
                         debug = false;
                         clear_screen();
-                        print_help(debug);
+                        print_help(debug, instruction_count);
                 }
                 else if (strncmp(program, "quit", 4) == 0)
                 {
@@ -138,26 +138,25 @@ void clear_screen(void)
 }
 
 
-//void print_instructions(const char *codes)
-//{
-//        printf("\ncode   :    instruction\n\n");
-//
-//        for (int i = 0; i < MEM; i++)
-//        {
-//                int perm = map_to_instruction_code(*(codes+i));
-//                printf(" %c     :    %s\n", map_to_input_code(i), instruction_description[perm]);
-//        }
-//        printf("\n");
-//}
-//
-//
-void print_help(bool debug)
+void print_instructions(int instruction_count)
+{
+        printf("\ncode   :    instruction\n\n");
+
+        for (int i = 0; i < instruction_count; i++)
+        {
+                printf("%s\n", instruction_description[i]);
+        }
+        printf("\n");
+}
+
+
+void print_help(bool debug, int instruction_count)
 {
         if (debug)
         {
                 printf("\nDEBUG MODE\n");
         }
 
-        //print_instructions(codes);
+        print_instructions(instruction_count);
         printf("Type 'quit' to exit, 'clear' to clear screen,  or 'help' to display all instructions\n\n");
 }
