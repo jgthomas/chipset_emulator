@@ -59,10 +59,7 @@ int main(int argc, char **argv)
                 while ( (found = strsep(&line, ",")) != NULL)
                 {
                         int code = op_code(found, 16);
-                        printf("%d\n", code);
-
                         snprintf(program_buffer+counter, 4, "%02x ", code);
-
                         counter += 3;
                 }
         }
