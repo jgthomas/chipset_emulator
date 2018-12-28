@@ -27,6 +27,7 @@ OP_CODE_CONVERT op_code_table[] = {
 
 void usage(void);
 int op_code(char *instruction);
+void read_assembly(char *infile, char buffer[16]);
 void write_machine_code(char *outfile, char buffer[16]);
 
 
@@ -38,15 +39,37 @@ int main(int argc, char **argv)
                 exit(EXIT_FAILURE);
         }
 
-        FILE *fp = fopen(argv[1], "r");
+        char program_buffer[16] = {0};
+
+        read_assembly(argv[1], program_buffer);
+
+        char *outfile;
+
+        if (argc == 3) {
+
+                outfile = argv[2];
+        }
+        else
+        {
+                outfile = "output.o";
+        }
+
+        write_machine_code(outfile, program_buffer);
+
+        exit(EXIT_SUCCESS);
+}
+
+
+void read_assembly(char *infile, char buffer[16])
+{
+        FILE *fp = fopen(infile, "r");
 
         if (fp == NULL)
         {
-                fprintf(stderr, "Failed to load file '%s'\n", argv[1]);
+                fprintf(stderr, "Failed to load file '%s'\n", infile);
                 exit(EXIT_FAILURE);
         }
 
-        char program_buffer[16] = {0};
         int counter = 0;
         char *line = NULL;
         size_t len = 0;
@@ -63,7 +86,7 @@ int main(int argc, char **argv)
                 while ( (found = strsep(&l, ",")) != NULL)
                 {
                         int code = op_code(found);
-                        snprintf(program_buffer+counter, 4, "%02x ", code);
+                        snprintf(buffer+counter, 4, "%02x ", code);
                         counter += 3;
                 }
 
@@ -78,23 +101,7 @@ int main(int argc, char **argv)
                 free(line);
         }
 
-
-        char *outfile;
-
-        if (argc == 3) {
-
-                outfile = argv[2];
-        }
-        else
-        {
-                outfile = "output.o";
-        }
-
-        write_machine_code(outfile, program_buffer);
-
         fclose(fp);
-
-        exit(EXIT_SUCCESS);
 }
 
 
