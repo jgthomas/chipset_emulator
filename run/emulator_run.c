@@ -8,6 +8,7 @@
 void run_program(char *filename);
 void run_debug(char *filename);
 char *read_in_program(char *filename);
+long program_length(FILE *data);
 
 
 int main(int argc, char **argv) {
@@ -64,13 +65,27 @@ char *read_in_program(char *filename)
                 exit(EXIT_FAILURE);
         }
 
-        fseek(data, 0L, SEEK_END);
-        long progLen = ftell(data);
-        rewind(data);
-        char *prog_to_run = calloc(sizeof(char), progLen+1);
-        fread(prog_to_run, progLen, 1, data);
+        long length = program_length(data);
+        char *program = calloc(sizeof(char), length+1);
+
+        if (program == NULL)
+        {
+                fprintf(stderr, "Cannot allocate memory for program");
+                exit(EXIT_FAILURE);
+        }
+
+        fread(program, length, 1, data);
 
         fclose(data);
 
-        return prog_to_run;
+        return program;
+}
+
+
+long program_length(FILE *data)
+{
+        fseek(data, 0L, SEEK_END);
+        long length = ftell(data);
+        rewind(data);
+        return length;
 }
