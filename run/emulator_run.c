@@ -34,8 +34,7 @@ void run_program(char *filename, int bits, int instruction_count)
         char *program = read_in_program(filename);
 
         chipset *chip = init_chip(bits, instruction_count);
-        int result = execute(chip, program);
-        printf("%d\n", result);
+        printf("%d\n", execute(chip, program));
 
         free(program);
         delete_chipset(chip);
@@ -47,8 +46,7 @@ void run_debug(char *filename, int bits, int instruction_count)
         char *program = read_in_program(filename);
 
         chipset *chip = init_chip(bits, instruction_count);
-        int result = debug(chip, program);
-        printf("%d\n", result);
+        printf("%d\n", debug(chip, program));
 
         free(program);
         delete_chipset(chip);
