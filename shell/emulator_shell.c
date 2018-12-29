@@ -44,7 +44,7 @@ int main(int argc, char **argv)
                 else if (strncmp(choice, "8", 1) == 0)
                 {
                         bits = 8;
-                        instruction_count = 16;
+                        instruction_count = 17;
                 }
                 else
                 {
