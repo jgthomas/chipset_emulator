@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include "run.h"
+#include "chipset.h"
 
 
 int main(int argc, char **argv)
@@ -20,7 +21,7 @@ int main(int argc, char **argv)
                 debug_on = true;
         }
 
-        run(argv[1], 4, 16, debug_on);
+        run(argv[1], FOUR_BIT, 16, debug_on);
 
         return EXIT_SUCCESS;
 }
