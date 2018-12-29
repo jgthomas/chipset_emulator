@@ -2,11 +2,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include "run.h"
 #include "emulator.h"
 #include "chipset.h"
 
 
-void run(char *filename, int bits, int instruction_count, bool debug);
 char *read_in_program(char *filename);
 long program_length(FILE *data);
 
