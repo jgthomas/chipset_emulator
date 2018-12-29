@@ -11,25 +11,6 @@ char *read_in_program(char *filename);
 long program_length(FILE *data);
 
 
-int main(int argc, char **argv) {
-
-        if (argc < 2)
-        {
-                fprintf(stderr, "Insufficient arguments\n");
-                exit(EXIT_FAILURE);
-        }
-
-        bool debug_on = false;
-
-        if (argc == 3 && (strncmp(argv[2],"d", 1) == 0))
-        {
-                debug_on = true;
-        }
-
-        run(argv[1], 4, 16, debug_on);
-}
-
-
 void run(char *filename, int bits, int instruction_count, bool debug_on)
 {
         char *program = read_in_program(filename);

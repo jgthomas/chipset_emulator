@@ -20,7 +20,7 @@ LDLIBS = -lm
 
 # EXECUTABLE - the final binary file
 BUILD_DIR = ./build
-BIN = run
+BIN = run4
 TARGET = $(BUILD_DIR)/$(BIN)
 
 # FILES
