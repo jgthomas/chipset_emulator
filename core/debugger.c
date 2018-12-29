@@ -40,7 +40,7 @@ void print_chipset(chipset *chip, int prev_pc)
 static void print_memory(chipset *chip)
 {
         printf("\n   MEMORY");
-        print_line(chip->BITS / 4);
+        print_line(chip->BITS / FOUR_BIT);
 
         int count = 0;
 
@@ -52,7 +52,7 @@ static void print_memory(chipset *chip)
                 if (count == chip->BITS)
                 {
                         printf("|");
-                        print_line(chip->BITS / 4);
+                        print_line(chip->BITS / FOUR_BIT);
                         count = 0;
                 }
         }

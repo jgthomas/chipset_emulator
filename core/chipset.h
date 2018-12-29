@@ -3,6 +3,10 @@
 
 #include <stdbool.h>
 
+#define FOUR_BIT 4
+#define EIGHT_BIT 8
+
+
 struct chipset;
 typedef struct chipset chipset;
 
