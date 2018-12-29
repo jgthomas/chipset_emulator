@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "emulator_assembler.h"
 #include "emulator.h"
+#include "conversion.h"
 
 
 #define BUFFER 256
@@ -133,7 +134,7 @@ int op_code(char *instruction)
                 }
         }
 
-        return convert_code(instruction);
+        return decimal_string_to_int(instruction);
 }
 
 
