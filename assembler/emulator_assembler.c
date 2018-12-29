@@ -6,7 +6,9 @@
 #include "conversion.h"
 
 
-#define BUFFER 256
+//#define BUFFER 256
+#define CODE_LEN 4
+#define PADDING 10
 
 
 OP_CODE_CONVERT op_code_table[] = {
@@ -32,8 +34,9 @@ OP_CODE_CONVERT op_code_table[] = {
 
 void usage(void);
 int op_code(char *instruction);
-void read_assembly(char *infile, char buffer[BUFFER]);
-void write_machine_code(char *outfile, char buffer[BUFFER]);
+//void read_assembly(char *infile, char *buffer);
+char *read_assembly(char *infile);
+void write_machine_code(char *outfile, char *buffer);
 
 
 int main(int argc, char **argv)
@@ -44,9 +47,7 @@ int main(int argc, char **argv)
                 exit(EXIT_FAILURE);
         }
 
-        char program_buffer[BUFFER] = {0};
-
-        read_assembly(argv[1], program_buffer);
+        char *program_buffer = read_assembly(argv[1]);
 
         char *outfile;
 
@@ -61,11 +62,16 @@ int main(int argc, char **argv)
 
         write_machine_code(outfile, program_buffer);
 
+        if (program_buffer)
+        {
+                free(program_buffer);
+        }
+
         exit(EXIT_SUCCESS);
 }
 
 
-void read_assembly(char *infile, char buffer[BUFFER])
+char *read_assembly(char *infile)
 {
         FILE *fp = fopen(infile, "r");
 
@@ -74,6 +80,9 @@ void read_assembly(char *infile, char buffer[BUFFER])
                 fprintf(stderr, "Failed to load file '%s'\n", infile);
                 exit(EXIT_FAILURE);
         }
+
+        size_t buffer_length = (256 * CODE_LEN) + PADDING;
+        char *buffer = calloc(sizeof(char), buffer_length);
 
         int counter = 0;
         char *line = NULL;
@@ -107,10 +116,12 @@ void read_assembly(char *infile, char buffer[BUFFER])
         }
 
         fclose(fp);
+
+        return buffer;
 }
 
 
-void write_machine_code(char *outfile, char buffer[BUFFER])
+void write_machine_code(char *outfile, char *buffer)
 {
         FILE *fp2 = fopen(outfile, "w");
 
