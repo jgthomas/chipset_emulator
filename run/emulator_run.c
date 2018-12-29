@@ -5,8 +5,8 @@
 #include "chipset.h"
 
 
-void run_program(char *filename);
-void run_debug(char *filename);
+void run_program(char *filename, int bits, int instruction_count);
+void run_debug(char *filename, int bits, int instruction_count);
 char *read_in_program(char *filename);
 long program_length(FILE *data);
 
@@ -21,19 +21,19 @@ int main(int argc, char **argv) {
 
         if (argc == 3 && (strncmp(argv[2],"d", 1) == 0))
         {
-                run_debug(argv[1]);
+                run_debug(argv[1], 4, 16);
         }
         else {
-                run_program(argv[1]);
+                run_program(argv[1], 4, 16);
         }
 }
 
 
-void run_program(char *filename)
+void run_program(char *filename, int bits, int instruction_count)
 {
         char *program = read_in_program(filename);
 
-        chipset *chip = init_chip(4, 16);
+        chipset *chip = init_chip(bits, instruction_count);
         int result = execute(chip, program);
         printf("%d\n", result);
 
@@ -42,11 +42,11 @@ void run_program(char *filename)
 }
 
 
-void run_debug(char *filename)
+void run_debug(char *filename, int bits, int instruction_count)
 {
         char *program = read_in_program(filename);
 
-        chipset *chip = init_chip(4, 16);
+        chipset *chip = init_chip(bits, instruction_count);
         int result = debug(chip, program);
         printf("%d\n", result);
 
