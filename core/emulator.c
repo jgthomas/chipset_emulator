@@ -3,18 +3,16 @@
 #include <stdbool.h>
 #include <string.h>
 #include <math.h>
-#include <errno.h>
-#include <limits.h>
+#include "emulator.h"
 #include "chipset.h"
 #include "instructions.h"
-#include "emulator.h"
 #include "debugger.h"
+#include "conversion.h"
 
 
 void init_registers(chipset *chip);
 int memory_size(int bits);
 void execute_instruction(chipset *chip);
-int convert_code(char *hex);
 void clear_memory(chipset *chip);
 void load_program(chipset *chip, char *program);
 void execute_program(chipset *chip);
@@ -174,42 +172,6 @@ int memory_size(int bits)
 }
 
 
-int convert_code(char *hex)
-{
-        errno = 0;
-        char *endptr;
-
-        long op = strtol(hex, &endptr, 16);
-
-        if (errno == ERANGE)
-        {
-                switch(op)
-                {
-                        case LONG_MIN:
-                                fprintf(stderr, "Underflow: op code too high\n");
-                                exit(EXIT_FAILURE);
-                        case LONG_MAX:
-                                fprintf(stderr, "Overflow: op code too low\n");
-                                exit(EXIT_FAILURE);
-                }
-        }
-        else if (errno != 0)
-        {
-                fprintf(stderr, "Unidentified op code error\n");
-                exit(EXIT_FAILURE);
-        }
-        else if (*endptr != '\0' && *endptr != '\n')
-        {
-                fprintf(stderr, "Invalid instruction provided\n");
-                exit(EXIT_FAILURE);
-        }
-
-        int op_code = (int) op;
-
-        return op_code;
-}
-
-
 void load_program(chipset *chip, char *program)
 {
         // make copy to allow freeing of memory and to handle literals
@@ -221,7 +183,7 @@ void load_program(chipset *chip, char *program)
 
         while ( (token = strsep(&p, " ")) != NULL && i < chip->MEMSIZE)
         {
-                int op_code = convert_code(token);
+                int op_code = hex_string_to_int(token);
 
                 if (op_code < chip->MEMSIZE)
                 {
