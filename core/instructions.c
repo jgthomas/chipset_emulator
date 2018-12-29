@@ -114,6 +114,13 @@ void jump_if_r0_not_zero(chipset *chip)
 }
 
 
+void print_as_ascii(chipset *chip)
+{
+        printf("%c", chip->MEMORY[chip->PC+1]);
+        chip->PC += 2;
+}
+
+
 void (*INSTRUCTIONS[])() = {halt,
                             add,
                             subtract,
@@ -129,4 +136,5 @@ void (*INSTRUCTIONS[])() = {halt,
                             store_r1_in_address,
                             jump_to_address,
                             jump_if_r0_zero,
-                            jump_if_r0_not_zero};
+                            jump_if_r0_not_zero,
+                            print_as_ascii};
