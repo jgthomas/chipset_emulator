@@ -5,6 +5,9 @@
 #include "emulator.h"
 
 
+#define BUFFER 256
+
+
 OP_CODE_CONVERT op_code_table[] = {
         {"HALT", HALT},
         {"ADD", ADD},
@@ -27,8 +30,8 @@ OP_CODE_CONVERT op_code_table[] = {
 
 void usage(void);
 int op_code(char *instruction);
-void read_assembly(char *infile, char buffer[16]);
-void write_machine_code(char *outfile, char buffer[16]);
+void read_assembly(char *infile, char buffer[BUFFER]);
+void write_machine_code(char *outfile, char buffer[BUFFER]);
 
 
 int main(int argc, char **argv)
@@ -39,7 +42,7 @@ int main(int argc, char **argv)
                 exit(EXIT_FAILURE);
         }
 
-        char program_buffer[16] = {0};
+        char program_buffer[BUFFER] = {0};
 
         read_assembly(argv[1], program_buffer);
 
@@ -60,7 +63,7 @@ int main(int argc, char **argv)
 }
 
 
-void read_assembly(char *infile, char buffer[16])
+void read_assembly(char *infile, char buffer[BUFFER])
 {
         FILE *fp = fopen(infile, "r");
 
@@ -105,7 +108,7 @@ void read_assembly(char *infile, char buffer[16])
 }
 
 
-void write_machine_code(char *outfile, char buffer[16])
+void write_machine_code(char *outfile, char buffer[BUFFER])
 {
         FILE *fp2 = fopen(outfile, "w");
 
