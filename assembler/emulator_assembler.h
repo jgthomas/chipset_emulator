@@ -1,7 +1,7 @@
 #ifndef EMULATOR_ASSEMBLER_H
 #define EMULATOR_ASSEMBLER_H
 
-#define INSTRUCTION_NUM 16
+#define INSTRUCTION_NUM 17
 
 typedef enum {HALT,
               ADD,
@@ -18,7 +18,8 @@ typedef enum {HALT,
               ST1,
               JMP,
               JMPZ,
-              JMPNZ
+              JMPNZ,
+              ASCCHAR,
 } OP_CODE;
 
 

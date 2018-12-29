@@ -25,7 +25,8 @@ OP_CODE_CONVERT op_code_table[] = {
         {"ST1", ST1},
         {"JMP", JMP},
         {"JMPZ", JMPZ},
-        {"JMPNZ", JMPNZ}
+        {"JMPNZ", JMPNZ},
+        {"ASCCHAR", ASCCHAR}
 };
 
 
