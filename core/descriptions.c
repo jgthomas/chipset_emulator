@@ -15,4 +15,5 @@ const char *instruction_description[] = {
         "store R1 in address",
         "jump to address",
         "jump to address if R0 == 0",
-        "jump to address if R0 != 0"};
+        "jump to address if R0 != 0",
+        "print next ascii value"};
