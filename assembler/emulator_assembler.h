@@ -2,8 +2,6 @@
 #define EMULATOR_ASSEMBLER_H
 
 #define INSTRUCTION_NUM 16
-#define MEM_LEN 16
-
 
 typedef enum {HALT,
               ADD,
