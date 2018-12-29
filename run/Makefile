@@ -20,7 +20,7 @@ LDLIBS = -lm
 
 # EXECUTABLE - the final binary file
 BUILD_DIR = ./build
-BIN = emulator_run
+BIN = run
 TARGET = $(BUILD_DIR)/$(BIN)
 
 # FILES
