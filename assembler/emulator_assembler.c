@@ -32,7 +32,7 @@ OP_CODE_CONVERT op_code_table[] = {
 
 void usage(void);
 int op_code(char *instruction);
-//void read_assembly(char *infile, char *buffer);
+int count_codes(FILE *fp);
 char *read_assembly(char *infile);
 void write_machine_code(char *outfile, char *buffer);
 
@@ -79,7 +79,7 @@ char *read_assembly(char *infile)
                 exit(EXIT_FAILURE);
         }
 
-        size_t buffer_length = (256 * CODE_LEN) + PADDING;
+        size_t buffer_length = (count_codes(fp) * CODE_LEN) + PADDING;
         char *buffer = calloc(sizeof(char), buffer_length);
 
         int counter = 0;
@@ -145,6 +145,25 @@ int op_code(char *instruction)
         }
 
         return decimal_string_to_int(instruction);
+}
+
+
+int count_codes(FILE *fp)
+{
+        char c;
+        int count = 0;
+
+        while ((c=getc(fp)) != EOF)
+        {
+                if (c == '\n' || c == ',')
+                {
+                        count++;
+                }
+        }
+
+        rewind(fp);
+
+        return count;
 }
 
 
