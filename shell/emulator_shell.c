@@ -38,12 +38,12 @@ int main(int argc, char **argv)
 
                 if (strncmp(choice, "4", 1) == 0)
                 {
-                        bits = 4;
+                        bits = FOUR_BIT;
                         instruction_count = 16;
                 }
                 else if (strncmp(choice, "8", 1) == 0)
                 {
-                        bits = 8;
+                        bits = EIGHT_BIT;
                         instruction_count = 17;
                 }
                 else
