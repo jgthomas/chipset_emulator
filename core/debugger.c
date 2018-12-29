@@ -10,7 +10,8 @@
 
 static void print_register(int pc, int ir, int r0, int r1);
 static void print_memory(chipset *chip);
-static void print_line(void);
+static void print_four_bit_line(void);
+static void print_line(int repeats);
 
 
 void print_header(chipset *chip, int step)
@@ -39,7 +40,7 @@ void print_chipset(chipset *chip, int prev_pc)
 static void print_memory(chipset *chip)
 {
         printf("\n   MEMORY");
-        print_line();
+        print_line(chip->BITS / 4);
 
         int count = 0;
 
@@ -48,10 +49,10 @@ static void print_memory(chipset *chip)
                 printf("|   %02d   ", chip->MEMORY[i]);
                 count++;
 
-                if (count == 4)
+                if (count == chip->BITS)
                 {
                         printf("|");
-                        print_line();
+                        print_line(chip->BITS / 4);
                         count = 0;
                 }
         }
@@ -69,9 +70,20 @@ static void print_register(int pc, int ir, int r0, int r1)
 }
 
 
-static void print_line(void)
+static void print_line(int repeats)
 {
         printf("\n");
-        printf("-------------------------------------");
+
+        for (int i = 0; i < repeats; i++)
+        {
+                print_four_bit_line();
+        }
+
         printf("\n");
+}
+
+
+static void print_four_bit_line(void)
+{
+        printf("-------------------------------------");
 }
