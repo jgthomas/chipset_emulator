@@ -8,9 +8,9 @@
 #include "chipset.h"
 
 
-void print_register(int pc, int ir, int r0, int r1);
-void print_memory(chipset *chip);
-void print_line(void);
+static void print_register(int pc, int ir, int r0, int r1);
+static void print_memory(chipset *chip);
+static void print_line(void);
 
 
 void print_header(chipset *chip, int step)
@@ -36,7 +36,7 @@ void print_chipset(chipset *chip, int prev_pc)
 }
 
 
-void print_memory(chipset *chip)
+static void print_memory(chipset *chip)
 {
         printf("\n   MEMORY");
         print_line();
@@ -58,7 +58,7 @@ void print_memory(chipset *chip)
 }
 
 
-void print_register(int pc, int ir, int r0, int r1)
+static void print_register(int pc, int ir, int r0, int r1)
 {
         printf("\n   PC     IR     R0     R1");
         printf("\n-----------------------------");
@@ -69,7 +69,7 @@ void print_register(int pc, int ir, int r0, int r1)
 }
 
 
-void print_line(void)
+static void print_line(void)
 {
         printf("\n");
         printf("-------------------------------------");
