@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 #include "emulator.h"
 #include "chipset.h"
 
 
-void run_program(char *filename, int bits, int instruction_count);
-void run_debug(char *filename, int bits, int instruction_count);
+void run(char *filename, int bits, int instruction_count, bool debug);
 char *read_in_program(char *filename);
 long program_length(FILE *data);
 
@@ -19,34 +19,30 @@ int main(int argc, char **argv) {
                 exit(EXIT_FAILURE);
         }
 
+        bool debug_on = false;
+
         if (argc == 3 && (strncmp(argv[2],"d", 1) == 0))
         {
-                run_debug(argv[1], 4, 16);
+                debug_on = true;
         }
-        else {
-                run_program(argv[1], 4, 16);
-        }
+
+        run(argv[1], 4, 16, debug_on);
 }
 
 
-void run_program(char *filename, int bits, int instruction_count)
+void run(char *filename, int bits, int instruction_count, bool debug_on)
 {
         char *program = read_in_program(filename);
-
         chipset *chip = init_chip(bits, instruction_count);
-        printf("%d\n", execute(chip, program));
 
-        free(program);
-        delete_chipset(chip);
-}
-
-
-void run_debug(char *filename, int bits, int instruction_count)
-{
-        char *program = read_in_program(filename);
-
-        chipset *chip = init_chip(bits, instruction_count);
-        printf("%d\n", debug(chip, program));
+        if (debug_on)
+        {
+                printf("%d\n", debug(chip, program));
+        }
+        else
+        {
+                printf("%d\n", execute(chip, program));
+        }
 
         free(program);
         delete_chipset(chip);
