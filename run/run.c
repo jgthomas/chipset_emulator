@@ -18,11 +18,11 @@ void run(char *filename, int bits, int instruction_count, bool debug_on)
 
         if (debug_on)
         {
-                printf("%d\n", debug(chip, program));
+                printf("\n%d\n", debug(chip, program));
         }
         else
         {
-                printf("%d\n", execute(chip, program));
+                printf("\n%d\n", execute(chip, program));
         }
 
         free(program);
