@@ -5,8 +5,6 @@
 #include "emulator.h"
 #include "conversion.h"
 
-
-//#define BUFFER 256
 #define CODE_LEN 4
 #define PADDING 10
 
