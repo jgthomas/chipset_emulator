@@ -20,37 +20,47 @@ LDLIBS = -lm
 
 # EXECUTABLE - the final binary file
 BUILD_DIR = ./build
-BIN = run4
-TARGET = $(BUILD_DIR)/$(BIN)
+EXECUTABLES = $(BUILD_DIR)/run4 \
+			  $(BUILD_DIR)/run8
 
 # FILES
-PWD_HEADERS := $(wildcard *.h)
-PWD_SOURCES := $(wildcard *.c)
-HEADERS = $(PWD_HEADERS) emulator.h instructions.h debugger.h descriptions.h conversion.h
-SOURCES = $(PWD_SOURCES) emulator.c instructions.c debugger.c descriptions.c conversion.c
-OBJECTS := $(SOURCES:%.c=$(BUILD_DIR)/%.o)
-DEPENDS = $(OBJECTS:%.o=%.d)
+SHARED_HEADERS = emulator.h instructions.h debugger.h descriptions.h conversion.h
+SHARED_SOURCES = emulator.c instructions.c debugger.c descriptions.c conversion.c
+FOUR_HEADERS = run.h $(SHARED_HEADERS)
+FOUR_SOURCES = run.c run4.c $(SHARED_SOURCES)
+FOUR_OBJECTS := $(FOUR_SOURCES:%.c=$(BUILD_DIR)/%.o)
+FOUR_DEPENDS = $(FOUR_OBJECTS:%.o=%.d)
+EIGHT_HEADERS = run.h $(SHARED_HEADERS)
+EIGHT_SOURCES = run.c run8.c $(SHARED_SOURCES)
+EIGHT_OBJECTS := $(EIGHT_SOURCES:%.c=$(BUILD_DIR)/%.o)
+EIGHT_DEPENDS = $(EIGHT_OBJECTS:%.o=%.d)
 
 # TARGETS
 .PHONY: all clean rebuild test
 
-all: $(TARGET)
+all: $(EXECUTABLES)
 
-$(TARGET): $(OBJECTS) $(HEADERS) Makefile
+$(BUILD_DIR)/run4: $(FOUR_OBJECTS) $(FOUR_HEADERS) Makefile
 	mkdir -p $(@D)
-	$(CC) $(CFLAGS) $(OBJECTS) $(LDLIBS) -o $(TARGET)
+	$(CC) $(CFLAGS) $(FOUR_OBJECTS) $(LDLIBS) -o $(BUILD_DIR)/run4
 
--include $(DEPENDS)
+-include $(FOUR_DEPENDS)
+
+$(BUILD_DIR)/run8: $(EIGHT_OBJECTS) $(EIGHT_HEADERS) Makefile
+	mkdir -p $(@D)
+	$(CC) $(CFLAGS) $(EIGHT_OBJECTS) $(LDLIBS) -o $(BUILD_DIR)/run8
+
+-include $(EIGHT_DEPENDS)
 
 $(BUILD_DIR)/%.o: %.c
 	mkdir -p $(@D)
 	$(CC) $(CFLAGS) -MMD -MP -c $< -o $@
 
 clean:
-	$(RM) $(TARGET) $(OBJECTS)
+	$(RM) $(EXECUTABLES) $(FOUR_OBJECTS) $(EIGHT_OBJECTS)
 
-rebuild: clean $(TARGET)
+rebuild: clean $(EXECUTABLES)
 
 test:
-	@echo "EXECUTABLES = ${TARGET}"
-	@echo "OBJECTS = ${OBJECTS}"
+	@echo "EXECUTABLES = ${EXECUTABLES}"
+	@echo "OBJECTS = ${FOUR_OBJECTS} ${EIGHT_OBJECTS}"
