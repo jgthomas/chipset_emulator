@@ -1,9 +1,9 @@
 # PATHS - to search for the headers and source files
-HEADERS_1 = ../core/
+HEADERS_1 = ../core/ ../io/
 HEADERS_2 =
 HEADERS_3 =
 
-SOURCE_1 = ../core/
+SOURCE_1 = ../core/ ../io/
 SOURCE_2 =
 SOURCE_3 =
 
@@ -24,8 +24,8 @@ EXECUTABLES = $(BUILD_DIR)/run4 \
 			  $(BUILD_DIR)/run8
 
 # FILES
-SHARED_HEADERS = emulator.h instructions.h debugger.h descriptions.h conversion.h
-SHARED_SOURCES = emulator.c instructions.c debugger.c descriptions.c conversion.c
+SHARED_HEADERS = emulator.h instructions.h debugger.h descriptions.h conversion.h files.h
+SHARED_SOURCES = emulator.c instructions.c debugger.c descriptions.c conversion.c files.c
 FOUR_HEADERS = run.h $(SHARED_HEADERS)
 FOUR_SOURCES = run.c run4.c $(SHARED_SOURCES)
 FOUR_OBJECTS := $(FOUR_SOURCES:%.c=$(BUILD_DIR)/%.o)

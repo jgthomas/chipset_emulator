@@ -5,6 +5,7 @@
 #include "run.h"
 #include "emulator.h"
 #include "chipset.h"
+#include "files.h"
 
 
 char *read_in_program(char *filename);
@@ -32,13 +33,7 @@ void run(char *filename, int bits, int instruction_count, bool debug_on)
 
 char *read_in_program(char *filename)
 {
-        FILE *data = fopen(filename, "r");
-
-        if (data == NULL)
-        {
-                fprintf(stderr, "Cannot locate file '%s'\n", filename);
-                exit(EXIT_FAILURE);
-        }
+        FILE *data = load_file(filename, "r");
 
         long length = program_length(data);
         char *program = calloc(sizeof(char), length+1);
