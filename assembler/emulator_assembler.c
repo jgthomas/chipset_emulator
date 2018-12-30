@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <assert.h>
 #include "emulator_assembler.h"
 #include "emulator.h"
 #include "conversion.h"
@@ -74,6 +75,7 @@ char *read_assembly(char *infile)
 
         size_t buffer_length = count_codes(fp) * CODE_LEN;
         char *buffer = calloc(sizeof(char), buffer_length);
+        assert(buffer != NULL);
 
         int counter = 0;
         char *line = NULL;
