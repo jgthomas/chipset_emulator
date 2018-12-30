@@ -7,8 +7,6 @@
 #include "files.h"
 
 #define CODE_LEN 4
-#define PADDING 10
-
 
 OP_CODE_CONVERT op_code_table[] = {
         {"HALT", HALT},
@@ -74,7 +72,7 @@ char *read_assembly(char *infile)
 {
         FILE *fp = load_file(infile, "r");
 
-        size_t buffer_length = (count_codes(fp) * CODE_LEN) + PADDING;
+        size_t buffer_length = count_codes(fp) * CODE_LEN;
         char *buffer = calloc(sizeof(char), buffer_length);
 
         int counter = 0;
