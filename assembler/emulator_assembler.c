@@ -73,13 +73,6 @@ int main(int argc, char **argv)
 char *read_assembly(char *infile)
 {
         FILE *fp = load_file(infile, "r");
-        //FILE *fp = fopen(infile, "r");
-
-        //if (fp == NULL)
-        //{
-        //        fprintf(stderr, "Failed to load file '%s'\n", infile);
-        //        exit(EXIT_FAILURE);
-        //}
 
         size_t buffer_length = (count_codes(fp) * CODE_LEN) + PADDING;
         char *buffer = calloc(sizeof(char), buffer_length);
