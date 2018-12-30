@@ -1,9 +1,9 @@
 # PATHS - to search for the headers and source files
-HEADERS_1 = ../core/
+HEADERS_1 = ../core/ ../io/
 HEADERS_2 =
 HEADERS_3 =
 
-SOURCE_1 = ../core/
+SOURCE_1 = ../core/ ../io/
 SOURCE_2 =
 SOURCE_3 =
 
@@ -26,8 +26,8 @@ TARGET = $(BUILD_DIR)/$(BIN)
 # FILES
 PWD_HEADERS := $(wildcard *.h)
 PWD_SOURCES := $(wildcard *.c)
-HEADERS = $(PWD_HEADERS) emulator.h instructions.h debugger.h descriptions.h conversion.h
-SOURCES = $(PWD_SOURCES) emulator.c instructions.c debugger.c descriptions.c conversion.c
+HEADERS = $(PWD_HEADERS) emulator.h instructions.h debugger.h descriptions.h conversion.h files.h
+SOURCES = $(PWD_SOURCES) emulator.c instructions.c debugger.c descriptions.c conversion.c files.c
 OBJECTS := $(SOURCES:%.c=$(BUILD_DIR)/%.o)
 DEPENDS = $(OBJECTS:%.o=%.d)
 
