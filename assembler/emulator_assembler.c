@@ -116,16 +116,9 @@ char *read_assembly(char *infile)
 
 void write_machine_code(char *outfile, char *buffer)
 {
-        FILE *fp2 = fopen(outfile, "w");
-
-        if (fp2 == NULL)
-        {
-                fprintf(stderr, "Failed to open file '%s'\n", outfile);
-                exit(EXIT_FAILURE);
-        }
-
-        fprintf(fp2, "%s", buffer);
-        fclose(fp2);
+        FILE *f_stream_out = load_file(outfile, "w");
+        fprintf(f_stream_out, "%s", buffer);
+        fclose(f_stream_out);
 }
 
 
