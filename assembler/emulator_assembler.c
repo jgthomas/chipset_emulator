@@ -7,28 +7,6 @@
 #include "conversion.h"
 #include "files.h"
 
-#define CODE_LEN 4
-
-OP_CODE_CONVERT op_code_table[] = {
-        {"HALT", HALT},
-        {"ADD", ADD},
-        {"SUB", SUB},
-        {"INC0", INC0},
-        {"INC1", INC1},
-        {"DEC0", DEC0},
-        {"DEC1", DEC1},
-        {"SWP", SWP},
-        {"PRNT", PRNT},
-        {"LD0", LD0},
-        {"LD1", LD1},
-        {"ST0", ST0},
-        {"ST1", ST1},
-        {"JMP", JMP},
-        {"JMPZ", JMPZ},
-        {"JMPNZ", JMPNZ},
-        {"ASCCHAR", ASCCHAR}
-};
-
 
 void usage(void);
 int op_code(char *instruction);
