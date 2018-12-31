@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <assert.h>
-#include "emulator_assembler.h"
+#include "assembler.h"
 #include "emulator.h"
 #include "conversion.h"
 #include "files.h"

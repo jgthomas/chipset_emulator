@@ -1,5 +1,5 @@
-#ifndef EMULATOR_ASSEMBLER_H
-#define EMULATOR_ASSEMBLER_H
+#ifndef ASSEMBLER_H
+#define ASSEMBLER_H
 
 #define CODE_LEN 4
 #define INSTRUCTION_NUM 17
