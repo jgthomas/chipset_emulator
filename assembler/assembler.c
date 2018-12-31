@@ -11,6 +11,7 @@
 void usage(void);
 int op_code(char *instruction);
 int count_codes(FILE *fp);
+bool is_label(char *str);
 char *read_assembly(char *infile);
 void write_machine_code(char *outfile, char *buffer);
 
@@ -126,6 +127,17 @@ int count_codes(FILE *fp)
         rewind(fp);
 
         return count;
+}
+
+
+bool is_label(char *str)
+{
+        if (str[strlen(str)-1] == ':')
+        {
+                return true;
+        }
+
+        return false;
 }
 
 
