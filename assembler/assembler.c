@@ -25,15 +25,11 @@ int main(int argc, char **argv)
 
         char *program_buffer = read_assembly(argv[1]);
 
-        char *outfile;
+        char *outfile = "output.o";
 
         if (argc == 3) {
 
                 outfile = argv[2];
-        }
-        else
-        {
-                outfile = "output.o";
         }
 
         write_machine_code(outfile, program_buffer);
