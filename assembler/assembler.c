@@ -4,6 +4,7 @@
 #include <assert.h>
 #include <stdbool.h>
 #include "assembler.h"
+#include "asm_parse.h"
 #include "emulator.h"
 #include "conversion.h"
 #include "files.h"
@@ -11,8 +12,6 @@
 
 void usage(void);
 int op_code(char *instruction);
-int count_codes(FILE *fp);
-bool is_label(char *str);
 char *read_assembly(char *infile);
 void write_machine_code(char *outfile, char *buffer);
 
@@ -112,37 +111,7 @@ int op_code(char *instruction)
 }
 
 
-int count_codes(FILE *fp)
-{
-        char c;
-        int count = 0;
-
-        while ((c=getc(fp)) != EOF)
-        {
-                if (c == '\n' || c == ',')
-                {
-                        count++;
-                }
-        }
-
-        rewind(fp);
-
-        return count;
-}
-
-
-bool is_label(char *str)
-{
-        if (str[strlen(str)-1] == ':')
-        {
-                return true;
-        }
-
-        return false;
-}
-
-
 void usage(void)
 {
-        printf("usage: ./emulator_compile input_file [output_file]\n");
+        printf("usage: ./assembler input_file [output_file]\n");
 }
