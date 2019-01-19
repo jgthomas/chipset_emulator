@@ -24,14 +24,14 @@ EXECUTABLES = $(BUILD_DIR)/run4 \
 			  $(BUILD_DIR)/run8
 
 # FILES
-SHARED_HEADERS = emulator.h instructions.h debugger.h descriptions.h conversion.h files.h
-SHARED_SOURCES = emulator.c instructions.c debugger.c descriptions.c conversion.c files.c
-FOUR_HEADERS = run.h $(SHARED_HEADERS)
-FOUR_SOURCES = run.c run4.c $(SHARED_SOURCES)
+SHARED_HEADERS = emulator.h instructions.h debugger.h descriptions.h conversion.h files.h run.h
+SHARED_SOURCES = emulator.c instructions.c debugger.c descriptions.c conversion.c files.c run.c
+FOUR_HEADERS = $(SHARED_HEADERS)
+FOUR_SOURCES = run4.c $(SHARED_SOURCES)
 FOUR_OBJECTS := $(FOUR_SOURCES:%.c=$(BUILD_DIR)/%.o)
 FOUR_DEPENDS = $(FOUR_OBJECTS:%.o=%.d)
-EIGHT_HEADERS = run.h $(SHARED_HEADERS)
-EIGHT_SOURCES = run.c run8.c $(SHARED_SOURCES)
+EIGHT_HEADERS = $(SHARED_HEADERS)
+EIGHT_SOURCES = run8.c $(SHARED_SOURCES)
 EIGHT_OBJECTS := $(EIGHT_SOURCES:%.c=$(BUILD_DIR)/%.o)
 EIGHT_DEPENDS = $(EIGHT_OBJECTS:%.o=%.d)
 
