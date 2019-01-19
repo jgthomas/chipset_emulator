@@ -158,5 +158,8 @@ void print_help(bool debug, int instruction_count)
         }
 
         print_instructions(instruction_count);
-        printf("Type 'quit' to exit, 'clear' to clear screen,  or 'help' to display all instructions\n\n");
+        printf("Enter: 'quit' to exit, 'clear' to clear screen, ");
+        printf("'help' to display this message\n");
+        printf("Enter: 'debug' to switch to debug mode, or ");
+        printf("'normal' to switch to normal mode\n\n");
 }
