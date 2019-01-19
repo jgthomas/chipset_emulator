@@ -144,7 +144,7 @@ void print_instructions(int instruction_count)
 
         for (int i = 0; i < instruction_count; i++)
         {
-                printf("%s\n", instruction_description[i]);
+                printf(" %02x         %s\n", i, instruction_description[i]);
         }
         printf("\n");
 }
