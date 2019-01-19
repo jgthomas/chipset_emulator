@@ -66,8 +66,8 @@ void testUSING_ALL_INSTRUCTIONS(void)
 
 void testMANY_DIFFERENT_INSTRUCTIONS(void)
 {
-        char *tests[] = {"03 04 01 05 06 07 08 0b 09 0c 0d 09 0a 07",
-                         "0d 08 09 08 0f 0a 01 00 0e 02 0a 06 0d 06"};
+        char *tests[] = {"03 04 01 05 06 07 08 0b 09 0c 0d 09 0a 07 00",
+                         "0d 08 09 08 0f 0a 01 00 0e 02 0a 06 0d 06 00"};
 
         int num_tests = sizeof(tests) / sizeof(tests[0]);
 
