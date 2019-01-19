@@ -75,7 +75,7 @@ chipset *init_chipset(int bits)
         chip->BITS = bits;
         chip->MEMSIZE = memory_size(bits);
 
-        chip->MEMORY = calloc(sizeof(int), chip->MEMSIZE);
+        chip->MEMORY = malloc(sizeof(int) * chip->MEMSIZE);
 
         if (chip->MEMORY == NULL)
         {
