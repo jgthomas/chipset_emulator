@@ -13,7 +13,6 @@
 void init_registers(chipset *chip);
 int memory_size(int bits);
 void execute_instruction(chipset *chip);
-void clear_memory(chipset *chip);
 void load_program(chipset *chip, char *program);
 void execute_program(chipset *chip);
 void load_instructions(chipset *chip, int count);
@@ -23,7 +22,6 @@ chipset *init_chipset(int bits);
 int execute(chipset *chip, char *program)
 {
         init_registers(chip);
-        clear_memory(chip);
         load_program(chip, program);
         execute_program(chip);
         return chip->R0;
@@ -33,7 +31,6 @@ int execute(chipset *chip, char *program)
 int debug(chipset *chip, char *program)
 {
         init_registers(chip);
-        clear_memory(chip);
         load_program(chip, program);
 
         int step = -1;
@@ -135,15 +132,6 @@ void execute_instruction(chipset *chip)
         {
                 chip->IR = chip->MEMORY[chip->PC];
                 chip->INSTRUCTIONS[chip->IR](chip);
-        }
-}
-
-
-void clear_memory(chipset *chip)
-{
-        for (int i = 0; i < chip->MEMSIZE; i++)
-        {
-                chip->MEMORY[i] = 0;
         }
 }
 
