@@ -1,4 +1,4 @@
-# Emulator for 4 and 8-bit chips
+# Emulator for 4-bit and 8-bit chips
 
 ## Features
 
