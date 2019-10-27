@@ -52,5 +52,4 @@ clean:
 rebuild: clean $(TARGET)
 
 test:
-	@echo "EXECUTABLES = ${TARGET}"
-	@echo "OBJECTS = ${OBJECTS}"
+	$(TARGET)
