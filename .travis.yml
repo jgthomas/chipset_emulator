@@ -5,6 +5,6 @@ sudo:
 addons:
   apt:
     packages:
-    - cmocka
+    - libcmocka0
 script:
         make && make test
