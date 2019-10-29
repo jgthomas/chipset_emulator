@@ -4,15 +4,25 @@
 
 ## Features
 
-* Interactive shell
+* **Interactive shell**
 
-* Simple debugger
+> Enter a program in machine code directly into the emulator.
 
-* Run program from a file
+* **Run program from a file**
 
-* Own assembly langauge
+> Run a machine code program from a file.
 
-* Simple assembler
+* **Simple debugger**
+
+> Debug mode available with the contents of memory and registers are displayed at each step in execution.
+
+* **Custom assembly langauge**
+
+> Set of mnemonic symbols to simplify writing programs for the system.
+
+* **Simple assembler**
+
+> Converts a program written in the system's assembly language into machine code.
 
 ## Details
 
