@@ -1,0 +1,10 @@
+language:
+        c
+sudo:
+        false
+addons:
+  apt:
+    packages:
+    - cmocka
+script:
+        make && make test
