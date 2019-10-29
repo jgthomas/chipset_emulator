@@ -15,7 +15,7 @@ vpath %.c $(SOURCE)
 
 # COMPILER - with flags and libraries to link
 CC = gcc
-CFLAGS = -g -Wall -Wextra $(foreach dir, $(INCLUDES), -I$(dir))
+CFLAGS = -g -Wall -Wextra -Werror $(foreach dir, $(INCLUDES), -I$(dir))
 LDLIBS = -lcmocka -lm
 
 # EXECUTABLE - the final binary file

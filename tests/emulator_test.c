@@ -13,6 +13,8 @@
 
 void test_answer_three(void **state)
 {
+        (void) state; /* unused */
+
         char *tests[] = {"03 03 03 00",
                          "04 04 04 07 00",
                          "03 03 03 03 03 03 05 05 05 00",
@@ -38,6 +40,8 @@ void test_answer_three(void **state)
 
 void test_many_different_instructions(void **state)
 {
+        (void) state; /* unused */
+
         char *tests[] = {"03 04 01 05 06 07 08 0b 09 0c 0d 09 0a 07 00",
                          "0d 08 09 08 0f 0a 01 00 0e 02 0a 06 0d 06 00"};
 
