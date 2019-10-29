@@ -14,7 +14,7 @@
 
 * **Simple debugger**
 
-> Debug mode available with the contents of memory and registers are displayed at each step in execution.
+> Debug mode available with the contents of memory and registers displayed at each step in execution.
 
 * **Custom assembly langauge**
 
