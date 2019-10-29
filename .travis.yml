@@ -6,5 +6,6 @@ addons:
   apt:
     packages:
     - libcmocka0
+    - libcmocka-dev
 script:
         make && make test
