@@ -1,6 +1,4 @@
-[![Build Status](https://travis-ci.com/jgthomas/chipset_emulator.svg?branch=master)](https://travis-ci.com/jgthomas/chipset_emulator)
-
-# Emulator for 4-bit and 8-bit chips
+# Emulator for 4-bit and 8-bit chips [![Build Status](https://travis-ci.com/jgthomas/chipset_emulator.svg?branch=master)](https://travis-ci.com/jgthomas/chipset_emulator)
 
 ## Features
 
